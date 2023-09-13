@@ -1,0 +1,87 @@
+#site-name {
+ color: whitesmoke;
+ font-size: 40px;
+ text-align: center;
+ font-family: 'online', sans-serif;
+ text-transform: capitalize;
+}
+
+header {
+ padding-top: 10px;
+ padding-bottom: 5px;
+}
+
+#menu {
+ width: 75%;
+ margin-left: 12.5%;
+ padding: 7.5px 0;
+ color: bisque;
+ text-align: center;
+}
+
+#menu > item {
+ border: 2px solid grey;
+ padding: 2.5px;
+ border-radius: 10px;
+ cursor: pointer;
+}
+
+.galery-image {
+ width:100%;
+ border-radius: 10px;
+}
+
+/*
+ width = 30% 
+ + margin-right 1.45
+ + margin-left 1.45
+ + border-left 2px
+ + border-right 2px
+*/
+/*
+ box-sizing: border-box;
+  width = 30%(
+ + margin-right 1.45
+ + margin-left 1.45
+ + border-left 2px
+ + border-right 2px
+ )
+*/
+.galery-item {
+ display: inline-block;
+ margin: 0 1.45%;
+ width:30%;
+ border: 2px solid grey;
+ padding: 15px;
+ border-radius: 15px;
+ box-sizing: border-box;
+}
+/* .galery-item span */
+/* .galery-image+br+span */
+.galery-item>span {
+ text-transform: capitalize;
+}
+
+.galery-item>p {
+ font-size: 10px;
+ text-align: right;
+}
+#img-1 {
+ background-image: url('./imgs/_127765594_coopershillnathanmillar.jpg');
+}
+#img-2 {
+ background-image: url('./imgs/GettyImages-1273584292-cbcd5f85f4c646d58f7a7fa158dcaaeb.jpg');
+} 
+#img-3 {
+ background-image: url('./imgs/v_chem_raznica_mezhdu_forest_i_wood__188.jpg');
+}
+.galery-image-2 {
+ width:100%;
+ height:40%;
+ background-size: contain;
+ background-repeat: no-repeat;
+ background-position: center;
+}
+.item-2 {
+ height: 390px;
+}
