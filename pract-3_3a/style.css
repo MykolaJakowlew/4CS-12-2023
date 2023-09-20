@@ -1,0 +1,134 @@
+:root {
+  --item-transition: 0.5s;
+  --letter-appears-duration: 1.5s
+}
+
+.body {
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+.container {
+  width:60%;
+  margin: auto;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: bolder;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.content {
+  width:100%;
+  box-sizing: border-box;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  width:50%;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+/* 
+.item:nth-child(1)  -> item №1 
+.item:nth-child(2)  -> item №2 
+*/
+
+.item:nth-last-child(2),
+.item:last-child {
+  flex-direction: row-reverse;
+}
+
+.item>div,
+.item>img {
+  width:50%;
+}
+.item>div {
+  margin-left: 5px;
+}
+.item>img {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+/* .item>img,
+.item>img+div {
+  transition: 0.5s;
+} */
+.item>img {
+  opacity: 0.5;
+  transition: var(--item-transition);
+}
+
+.item>img:hover {
+  opacity: 1;
+  animation-play-state: running;
+}
+.item>img+div {
+  transition: var(--item-transition);
+}
+.item>img:hover+div {
+  font-size: 30px;
+}
+
+.item>img {
+  animation-name: pulse-size;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+@keyframes pulse-size {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  60% {
+    transform: scale(0.8);
+  }
+
+  100%{
+    transform: scale(1);
+  }
+}
+
+
+.item-title>span {
+  animation: letter-appears var(--letter-appears-duration) infinite;
+}
+
+.item-title>span:nth-child(2) {
+  animation-delay: calc(var(--letter-appears-duration) / 3);
+}
+.item-title>span:nth-child(3) {
+  animation-delay: calc(var(--letter-appears-duration) / 2);
+}
+
+.item-title>span:nth-child(4) {
+  animation-delay: calc(var(--letter-appears-duration));
+}
+
+@keyframes letter-appears {
+  0% {
+    filter: blur(0);
+  }
+
+  100% {
+    filter: blur(10px);
+  }
+}

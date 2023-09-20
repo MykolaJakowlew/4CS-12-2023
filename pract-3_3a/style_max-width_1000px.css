@@ -1,0 +1,23 @@
+
+  .item {
+    height: 450px;
+    width:100%;
+    flex-direction: row;
+  }
+  .content {
+    flex-direction: column;
+    flex-wrap: unset;
+  }
+
+  .item>div {
+    font-size: 40px;
+  }
+
+  .item:nth-last-child(2),
+  .item:last-child {
+    flex-direction: row;
+  }
+
+  .item:nth-child(2n) {
+    flex-direction: row-reverse;
+  }
