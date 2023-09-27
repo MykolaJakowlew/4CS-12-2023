@@ -1,0 +1,122 @@
+:root {
+ --main-yellow: #e8b846
+}
+
+body {
+ margin: 0;
+}
+
+* {
+ box-sizing: border-box;
+}
+
+.section:first-child {
+ width:100%;
+ height: 700px;
+
+
+ background-image: url('./images/jhj-min.jpg');
+ background-position: center;
+ background-size: cover;
+
+ >div {
+  width: 60%;
+  margin: auto;
+  min-width: 600px;
+  height: 100%;
+
+  display: flex;
+  justify-content: end;
+
+  color: white;
+
+  padding-top: 50px;
+
+  .title,.description {
+   padding-top: 30px;
+   height: 80%;
+  }
+
+  .title {
+   width: 40%;
+   font-size: 2.5em;
+   border-right: 10px solid var(--main-yellow);
+  }
+
+  .description{
+   padding-left: 20px;
+   width:40%;
+   font-size: 1em;
+
+   >div:nth-child(2) {
+    background-color: var(--main-yellow);
+    padding: 15px 5px;
+    width: 40%;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    color: black;
+    border-radius: 10px;
+    font-weight: bolder;
+    margin-top: 60px;
+   }
+  }
+ }
+}
+
+
+.section:nth-child(2) {
+ width:100%;
+ height: 230px;
+ background-color: grey;
+
+ display: flex;
+ justify-content: center;
+
+ >.item {
+  width: 20%;
+  height: 100%;
+  margin: 0 10px;
+
+  background-color: whitesmoke;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  top: -30px;
+
+  box-shadow: 0px 0px 35px -3px rgba(0,0,0,1);
+
+  padding: 10px;
+  border-radius: 5px;
+
+  >div:first-child {
+   border-radius: 50%;
+   width:40%;
+   aspect-ratio: 1/1;
+   background-color: var(--main-yellow);
+   display: flex;
+
+   position: relative;
+   top: -30px;
+
+   >img {
+    margin: auto;
+    width: 60%;
+   }
+  }
+  >div:nth-child(2) {
+   font-weight: bolder;
+   font-size: 1.25em;
+   padding-bottom: 20px;
+  }
+
+  >div:last-child {
+   text-align: center;
+   font-size: 1em;
+   color: rgba(86, 85, 85, 0.615)
+  }
+ }
+}
