@@ -1,0 +1,222 @@
+:root {
+ --main-pink: #e1b0b4;
+ --main-white: #fff;
+ --main-grey: #f2f2f2;
+ --main-purpure: #f0effd;
+}
+
+* {
+ box-sizing: border-box;
+}
+
+body {
+ margin: 0;
+ background-color: var(--main-white);
+}
+
+.container {
+ width:60%;
+ max-width: 1200px;
+ min-width: 900px;
+
+ margin: auto;
+}
+
+header {
+ width:100%;
+ display: flex;
+
+ >li {
+  padding: 20px 30px;
+  list-style-type: none;
+  font-size: 0.75em;
+  cursor: pointer;
+  transition: 0.25s;
+  &:hover {
+   color: #c3bff8
+  }
+ }
+}
+
+.main-picture {
+ width:100%;
+ height: 690px;
+
+ margin: 50px 0;
+ border-radius: 50px;
+ overflow: hidden;
+ position: relative;
+
+ background-image: url('./images/4a/los-angeles.jpeg');
+ background-position: center;
+ background-size: cover;
+
+
+ >div {
+  width:100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.325);
+
+  padding: 30px;
+
+  color: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  >.title {
+   font-size: 3em;
+  }
+
+  >.description {
+   margin: 20px 0;
+   font-size: 1.5em;
+  }
+
+  >div:last-child {
+   background-color: var(--main-grey);
+   border-radius: 25px;
+   padding: 25px;
+   width:60%;
+
+   display: flex;
+   justify-content: space-between;
+
+   >input {
+    border: none;
+    padding: 10px;
+    border-radius: 25px;
+    flex-grow: 3;
+   }
+
+   >button {
+    color: var(--main-white);
+    background-color: black;
+
+    padding: 10px 15px;
+    border-radius: 15px;
+    text-transform: uppercase;
+    margin-left: 10px;
+   }
+  }
+ }
+}
+
+.cities-wrap {
+ width:100%;
+ height: 600px;
+ background-color: var(--main-pink);
+ padding: 40px 0;
+
+ /* A */
+ >.container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  row-gap: 20px;
+  column-gap: 50px;
+
+  >.item {
+   width:100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+
+   .item-city-name {
+    font-size: 1.2em;
+    font-weight: bolder;
+    margin: 5px;
+   }
+
+   >.item-picture {
+    width:50%;
+    aspect-ratio: 1/1;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+   }
+
+   >.item-picture[city="paris"] {
+    background-image: url('./images/4a/paris.jpeg');
+   }
+
+   
+   >.item-picture[city="New York"] {
+    background-image: url('./images/4a/pexels-photo-1029615.jpeg');
+   }
+
+   >.item-picture[city="Los Angeles"] {
+    background-image: url('./images/4a/los-angeles.jpeg');
+   }
+
+   >.item-picture[city="Chicago"] {
+    background-image: url('./images/4a/pexels-photo-325185.jpeg');
+   }
+
+   >.item-picture[city="Verona"] {
+    background-image: url('./images/4a/pexels-photo-2090651.jpeg');
+   }
+
+   >.item-picture[city="Tokio"] {
+    background-image: url('./images/4a/pexels-photo-1769369.jpeg');
+   }
+  }
+ }
+}
+
+/* A
+.cities-wrap .container {
+
+} */
+
+
+/*
+Switch
+*/
+
+
+header {
+ >li:last-child {
+  padding: 0 30px;
+  width: 160px;
+  >input {
+
+  }
+ }
+}
+.toggle-button {
+ -webkit-appearance: none;
+ outline: none;
+ width: 100px;
+ height: 100px;
+ background-color: #212121;
+ border-radius: 50px;
+ position: relative;
+ transition: .4s;
+}
+
+.toggle-button:before{
+ content: "";
+ position: absolute;
+ height: 100%;
+ width: 50%;
+ border-radius: 50px;
+ top: 0;
+ bottom: 0;
+ background-color: #bdbdbd;
+ transition: .4s;
+}
+
+#dark:checked  .toggle-button {
+ background-color: #bdbdbd;
+}
+
+#dark:checked .toggle-button:before {
+ transform: translate(100%);
+ background-color: #212121;
+ transition: .4s;
+}
