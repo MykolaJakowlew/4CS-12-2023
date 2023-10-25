@@ -1,0 +1,10 @@
+.gallery {
+ box-sizing: border-box;
+ display: grid;
+ grid-template-columns: repeat(6,1fr);
+ grid-template-rows: 200px;
+ column-gap: 20px;
+ row-gap: 20px;
+ width: 100%;
+ padding: 20px;
+}
