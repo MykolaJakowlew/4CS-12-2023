@@ -1,0 +1,9 @@
+.selector-wrapper {
+ display: flex;
+ color: whitesmoke
+}
+
+.selector-wrapper select {
+ margin-left: 10px;
+ width: 50%;
+}
