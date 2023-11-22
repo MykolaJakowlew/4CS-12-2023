@@ -1,0 +1,49 @@
+.popup-window-wrapper {
+ position: absolute;
+ top: 0;
+ left:0;
+ z-index: 20;
+
+ width: 500px;
+ aspect-ratio: 1/0.6;
+
+ display: flex;
+ justify-content: space-between;
+ flex-direction: column;
+
+ background-color: whitesmoke;
+ color: black;
+ padding: 15px;
+ padding-top: 40px;
+ border-radius: 20px;
+}
+
+.popup-window-wrapper #popup-close {
+ position: absolute;
+ top: 20px;
+ right: 20px;
+}
+
+.popup-window-wrapper #popup-title {
+ display: flex;
+ justify-content: space-between;
+}
+.popup-window-wrapper #popup-title input {
+ width: -webkit-fill-available;
+ margin-left: 10px;
+}
+.popup-window-wrapper #popup-description{
+ display: flex;
+ justify-content: space-between;
+}
+
+.popup-window-wrapper #popup-description textarea {
+ width: -webkit-fill-available;
+ margin-left: 10px;
+ resize: none;
+ height: 150px;
+}
+
+.popup-window-wrapper button {
+ font-size: 2em;
+}
