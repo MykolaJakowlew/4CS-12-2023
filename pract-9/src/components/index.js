@@ -24,6 +24,31 @@ function App () {
     });
   };
 
+  const [events, setEvents] = useState({});
+
+  const addEvent = (event) => {
+    debugger;
+    const { date } = event;
+    const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`; // => 2022-05-05
+
+    let eventsDataFromLocalStorage = localStorage.getItem('events');
+
+    if (!eventsDataFromLocalStorage) {
+      eventsDataFromLocalStorage = {};
+    } else {
+      eventsDataFromLocalStorage = JSON.parse(eventsDataFromLocalStorage);
+    }
+
+    if (eventsDataFromLocalStorage[key]) {
+      eventsDataFromLocalStorage[key].push(event);
+    } else {
+      eventsDataFromLocalStorage[key] = [event];
+    }
+
+    localStorage.setItem('events', JSON.stringify(eventsDataFromLocalStorage));
+    setEvents(eventsDataFromLocalStorage);
+  };
+
   /**
    * [] -- викликається тільки 1 раз коли елемент відмалюється на екрані
    */
@@ -32,6 +57,16 @@ function App () {
     if (date) {
       _setCurrentDate(new Date(date));
     }
+
+    let eventsDataFromLocalStorage = localStorage.getItem('events');
+
+    if (!eventsDataFromLocalStorage) {
+      eventsDataFromLocalStorage = {};
+    } else {
+      eventsDataFromLocalStorage = JSON.parse(eventsDataFromLocalStorage);
+    }
+
+    setEvents(eventsDataFromLocalStorage);
   }, []);
 
   const [selectedPeriod, _setSelectedPeriod] = useState('years');
@@ -67,9 +102,13 @@ function App () {
   const [createEvent, _setCreateEvent] = useState(null);
   const setCreateEvent = (callbackFunction) => _setCreateEvent(callbackFunction);
 
+
+
   return (
     <div className="App">
       <CalendarContext.Provider value={{
+        events,
+        addEvent,
         createEvent,
         currentDate,
         setSelectedPeriod,

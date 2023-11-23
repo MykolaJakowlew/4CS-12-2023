@@ -3,7 +3,7 @@ import './style.css';
 import CalendarContext from '../../context/calendar.context';
 
 const DayComponent = () => {
-  const { setCreateEvent, currentDate } = useContext(CalendarContext);
+  const { setCreateEvent, currentDate, events } = useContext(CalendarContext);
 
   const click = (hour, clientX, clientY) => {
     const date = new Date(currentDate);
@@ -13,6 +13,8 @@ const DayComponent = () => {
 
     setCreateEvent({ date, clientX, clientY });
   };
+  const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`; // => 2022-05-05
+  const eventsToday = events[key] || [];
 
   return (
     <div className='content-wrapper day-wrapper '>
@@ -28,6 +30,17 @@ const DayComponent = () => {
                   className='content'
                   onClick={(event) => click(index, event.clientX, event.clientY)}
                 >
+                  {
+                    eventsToday.map(el => {
+                      const hourWhenWasCreated = new Date(el.date).getHours();
+
+                      if (hourWhenWasCreated === index) {
+                        return (<div>{el.title}</div>);
+                      }
+
+                      return null;
+                    })
+                  }
                 </div>
               </div>
             );
