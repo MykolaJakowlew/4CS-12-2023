@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as uuid from 'uuid';
 import CalendarContext from '../context/calendar.context';
 import './style.css';
 import CurrentDateComponent from './currentDate';
@@ -7,7 +8,7 @@ import MonthsComponent from './months';
 import YearsComponent from './years';
 import MonthComponent from './month';
 import DayComponent from './day';
-import PopupWindowComponent from './popupWindow';
+import PopupComponent from './popup';
 
 
 function App () {
@@ -24,49 +25,123 @@ function App () {
     });
   };
 
+  /**
+   * {
+   *   "2022-12-12": [
+   *    { title, description, date: "2022-12-12T14:00:00"},
+   *    { title, description, date: "2022-12-12T14:00:00"},
+   *    { title, description, date: "2022-12-12T15:00:00"},
+   *   ],
+   *   "2022-12-13": [
+   *     { title, description, date: "2022-12-12T14:00:00"},
+   *   ]
+   * }
+   */
   const [events, setEvents] = useState({});
-
   const addEvent = (event) => {
-    debugger;
-    const { date } = event;
-    const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`; // => 2022-05-05
-
-    let eventsDataFromLocalStorage = localStorage.getItem('events');
-
-    if (!eventsDataFromLocalStorage) {
-      eventsDataFromLocalStorage = {};
+    event.id = uuid.v1();
+    let eventFromLocalStorage = localStorage.getItem("events");
+    if (!eventFromLocalStorage) {
+      eventFromLocalStorage = {};
     } else {
-      eventsDataFromLocalStorage = JSON.parse(eventsDataFromLocalStorage);
+      eventFromLocalStorage = JSON.parse(eventFromLocalStorage, (key, value) => {
+        if (key === 'date') {
+          return new Date(value);
+        }
+
+        return value;
+      });
     }
 
-    if (eventsDataFromLocalStorage[key]) {
-      eventsDataFromLocalStorage[key].push(event);
+    const key = `${event.date.getFullYear()}-${event.date.getMonth()}-${event.date.getDate()}`;
+
+    if (eventFromLocalStorage[key]) {
+      eventFromLocalStorage[key].push(event);
     } else {
-      eventsDataFromLocalStorage[key] = [event];
+      eventFromLocalStorage[key] = [event];
     }
 
-    localStorage.setItem('events', JSON.stringify(eventsDataFromLocalStorage));
-    setEvents(eventsDataFromLocalStorage);
+    localStorage.setItem('events', JSON.stringify(eventFromLocalStorage));
+
+
+    setEvents(eventFromLocalStorage);
   };
 
-  /**
-   * [] -- викликається тільки 1 раз коли елемент відмалюється на екрані
-   */
+  const updateEvent = (event) => {
+    let eventFromLocalStorage = localStorage.getItem("events");
+    if (!eventFromLocalStorage) {
+      eventFromLocalStorage = {};
+    } else {
+      eventFromLocalStorage = JSON.parse(eventFromLocalStorage, (key, value) => {
+        if (key === 'date') {
+          return new Date(value);
+        }
+
+        return value;
+      });
+    }
+
+    const key = `${event.date.getFullYear()}-${event.date.getMonth()}-${event.date.getDate()}`;
+
+
+    eventFromLocalStorage[key] = eventFromLocalStorage[key]
+      .map(el => {
+        if (el.id !== event.id) {
+          return el;
+        }
+
+        return event;
+      });
+
+    localStorage.setItem('events', JSON.stringify(eventFromLocalStorage));
+
+
+    setEvents(eventFromLocalStorage);
+  };
+
+  const removeEvent = (event) => {
+    let eventFromLocalStorage = localStorage.getItem("events");
+    if (!eventFromLocalStorage) {
+      eventFromLocalStorage = {};
+    } else {
+      eventFromLocalStorage = JSON.parse(eventFromLocalStorage, (key, value) => {
+        if (key === 'date') {
+          return new Date(value);
+        }
+
+        return value;
+      });
+    }
+
+    const key = `${event.date.getFullYear()}-${event.date.getMonth()}-${event.date.getDate()}`;
+
+    eventFromLocalStorage[key] = eventFromLocalStorage[key]
+      .filter(el => el.id !== event.id);
+
+    localStorage.setItem('events', JSON.stringify(eventFromLocalStorage));
+
+
+    setEvents(eventFromLocalStorage);
+  };
+
   useEffect(() => {
     const date = localStorage.getItem("currentDate");
     if (date) {
       _setCurrentDate(new Date(date));
     }
-
-    let eventsDataFromLocalStorage = localStorage.getItem('events');
-
-    if (!eventsDataFromLocalStorage) {
-      eventsDataFromLocalStorage = {};
+    let eventFromLocalStorage = localStorage.getItem("events");
+    if (!eventFromLocalStorage) {
+      eventFromLocalStorage = {};
     } else {
-      eventsDataFromLocalStorage = JSON.parse(eventsDataFromLocalStorage);
-    }
+      eventFromLocalStorage = JSON.parse(eventFromLocalStorage, (key, value) => {
+        if (key === 'date') {
+          return new Date(value);
+        }
 
-    setEvents(eventsDataFromLocalStorage);
+        return value;
+      });
+    }
+    setEvents(eventFromLocalStorage);
   }, []);
 
   const [selectedPeriod, _setSelectedPeriod] = useState('years');
@@ -100,22 +175,22 @@ function App () {
   }
 
   const [createEvent, _setCreateEvent] = useState(null);
-  const setCreateEvent = (callbackFunction) => _setCreateEvent(callbackFunction);
-
-
+  const setCreateEvent = (value) => _setCreateEvent(value);
 
   return (
     <div className="App">
       <CalendarContext.Provider value={{
         events,
         addEvent,
+        updateEvent,
+        removeEvent,
         createEvent,
         currentDate,
         setSelectedPeriod,
         setCurrentDate,
         setCreateEvent
       }}>
-        <PopupWindowComponent />
+        <PopupComponent />
         <header>
           <CurrentDateComponent />
 

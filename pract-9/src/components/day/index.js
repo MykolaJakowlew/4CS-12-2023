@@ -1,19 +1,28 @@
 import { useContext } from 'react';
 import './style.css';
 import CalendarContext from '../../context/calendar.context';
+import EventComponent from './event';
 
 const DayComponent = () => {
+
   const { setCreateEvent, currentDate, events } = useContext(CalendarContext);
 
-  const click = (hour, clientX, clientY) => {
+  const click = (hour, x, y) => {
     const date = new Date(currentDate);
     date.setHours(hour);
     date.setMinutes(0);
     date.setSeconds(0);
-
-    setCreateEvent({ date, clientX, clientY });
+    setCreateEvent({
+      date: date,
+      clientX: x,
+      clientY: y
+    });
   };
-  const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`; // => 2022-05-05
+
+  const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`;
+  /**
+   * eventsToday => [] || undefined
+   */
   const eventsToday = events[key] || [];
 
   return (
@@ -28,16 +37,14 @@ const DayComponent = () => {
                 </div>
                 <div
                   className='content'
-                  onClick={(event) => click(index, event.clientX, event.clientY)}
-                >
+                  onClick={(event) => click(index, event.clientX, event.clientY)}>
                   {
-                    eventsToday.map(el => {
-                      const hourWhenWasCreated = new Date(el.date).getHours();
-
-                      if (hourWhenWasCreated === index) {
-                        return (<div>{el.title}</div>);
+                    eventsToday.map(event => {
+                      const date = new Date(event.date);
+                      const hour = date.getHours();
+                      if (hour === index) {
+                        return (<EventComponent event={event} />);
                       }
-
                       return null;
                     })
                   }

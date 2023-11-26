@@ -15,13 +15,13 @@ const MonthComponent = () => {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
 
-  const days = getDaysInMonth(currentYear, currentMonth);
+  const daysCount = getDaysInMonth(currentYear, currentMonth);
 
   // const dayComponents = [];
-  // for (let i = 1; i <= days; i += 1) {
+  // for (let i = 1; i <= daysCount; i += 1) {
   //   const date = new Date(currentDate);
   //   date.setDate(i);
-  //   const dayOfWeek = date.getDay() + 1;
+  //   const dayOfWeek = date.getDay();
   //   dayComponents.push(
   //     <div
   //       style={{ "--day-col-start": dayOfWeek }}
@@ -42,21 +42,21 @@ const MonthComponent = () => {
     <div className='content-wrapper month-wrapper'>
       <div className='header'>{MONTHS[currentMonth]}</div>
       {
-        WEEK_DAYS.map(day => (<div className='day-name'>{day}</div>))
+        WEEK_DAYS.map(dayName => (<div className='day-name'>{dayName}</div>))
       }
       {/* {dayComponents} */}
       {
-        Array(days).fill(null)
-          .map((el, index) => {
+        Array(daysCount).fill(null)
+          .map((el, i) => {
             const date = new Date(currentDate);
-            date.setDate(index + 1);
-            const dayOfWeek = date.getDay() + 1;
+            date.setDate(i + 1);
+            const dayOfWeek = date.getDay();
             return (
               <div
-                onClick={() => click(index + 1)}
+                onClick={() => click(i + 1)}
                 style={{ "--day-col-start": dayOfWeek }}
                 className='content-item day'
-              >{index + 1}</div>
+              >{i + 1}</div>
             );
           })
       }
