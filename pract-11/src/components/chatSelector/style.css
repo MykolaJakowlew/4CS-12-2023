@@ -1,0 +1,37 @@
+.chat-selector-wrapper {
+ width: 100%;
+ height: calc(100% - 100px);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ column-gap: 30px;
+ animation: appears 0.15s both; 
+}
+
+@keyframes appears {
+  0% {
+   opacity: 0;
+   transform: scale(0.8);
+  }
+
+  100% {
+   opacity: 1;
+   transform: scale(1);
+  }
+}
+
+.chat-name {
+ font-size: 2em;
+ padding: 1em;
+ border: 2px solid white;
+ transition: 0.25s;
+}
+
+.chat-name:hover {
+ transform: scale(1.15);
+}
+
+.chat-name a {
+ color: white;
+ text-decoration: none;
+}
